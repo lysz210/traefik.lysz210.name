@@ -1,34 +1,36 @@
 version: '3'
 
 services:
-        reverse-proxy:
-                image: traefik:v2.4
-                command:
-                        - "--log.level=DEBUG"
-                        - "--api.insecure=true"
-                        - "--providers.docker=true"
-                        - "--providers.docker.exposedbydefault=false"
-                        - "--entrypoints.web.address=:80"
-                        - "--entrypoints.websecure.address=:443"
-                        - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
-                        - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
-                        - "--certificatesresolvers.letsencrypt.acme.email=lingyong.sun@gmail.com"
-                        - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
-                ports:
-                        - "443:443"
-                        - "80:80"
-                volumes:
-                        - ./letsencrypt:/letsencrypt
-                        - /var/run/docker.sock:/var/run/docker.sock:ro
-        whoami:
-                image: traefik/whoami
-                labels:
-                        traefik.enable: true
-                        traefik.http.routers.whoami.entrypoints: web
-                        traefik.http.routers.whoami.rule: Host(`swarm.lysz210.name`)
-                        traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
-                        #traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
-                        traefik.http.routers.whoami.middlewares: https-redirect@docker
-                        traefik.http.routers.whoami-s.rule: Host(`swarm.lysz210.name`)
-                        traefik.http.routers.whoami-s.entrypoints: websecure
-                        traefik.http.routers.whoami-s.tls.certresolver: letsencrypt
+  reverse-proxy:
+    image: traefik:v2.4
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.letsencrypt.acme.email=lingyong.sun@gmail.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+  swarmpit:
+    image: traefik/whoami
+    labels:
+      traefik.enable: true
+      traefik.http.routers.whoami.entrypoints: web
+      traefik.http.routers.whoami.rule: Host(`swarm.lysz210.name`)
+      traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
+      #traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
+      traefik.http.routers.whoami.middlewares: https-redirect@docker
+      traefik.http.routers.whoami-s.rule: Host(`swarm.lysz210.name`)
+      traefik.http.routers.whoami-s.entrypoints: websecure
+      traefik.http.routers.whoami-s.tls.certresolver: letsencrypt
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
