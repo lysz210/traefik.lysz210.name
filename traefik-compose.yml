@@ -15,7 +15,7 @@ services:
       - "--certificatesresolvers.letsencrypt.acme.email=lingyong.sun@gmail.com"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
     labels:
-      traefik.http.routers.api.rule: Host(`traefik.example.com`)
+      traefik.http.routers.api.rule: Host(`traefik.lysz210.name`)
       traefik.http.routers.api.service: api@internal
     ports:
       - "443:443"
