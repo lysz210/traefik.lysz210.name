@@ -15,6 +15,7 @@ services:
       retries: 3
     networks:
       - net
+      - deploy_net
     labels:
       traefik.enable: "true"
       traefik.http.routers.swarmpit.entrypoints: web
@@ -91,6 +92,9 @@ services:
 networks:
   net:
     driver: overlay
+
+  deploy_net:
+    external: true
 
 volumes:
   db-data:
