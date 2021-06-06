@@ -606,3 +606,9 @@ FodyWeavers.xsd
 *.tlog
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,visualstudiocode,visualstudio,intellij+all,eclipse
+
+# folders to keep
+letsencrypt/*
+
+# never ignoring .gitkeep
+!**/.gitkeep
