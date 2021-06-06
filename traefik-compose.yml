@@ -16,7 +16,7 @@ services:
       - "--certificatesresolvers.letsencrypt.acme.email=lingyong.sun@gmail.com"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
     labels:
-      traefik.enable: true
+      traefik.enable: "true"
       traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
       traefik.http.routers.api-n.entrypoints: web
       traefik.http.routers.api-n.rule: Host(`traefik.lysz210.name`)
