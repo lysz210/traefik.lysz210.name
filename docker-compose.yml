@@ -21,16 +21,20 @@ services:
       - ./letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
   swarmpit:
-    image: traefik/whoami
+    image: swarmpit/install:edge
+    environment:
+      INTERACTIVE: 0
+      STACK_NAME: controller
+      APP_PORT: 80
     labels:
       traefik.enable: true
-      traefik.http.routers.whoami.entrypoints: web
-      traefik.http.routers.whoami.rule: Host(`swarm.lysz210.name`)
+      traefik.http.routers.swarmpit.entrypoints: web
+      traefik.http.routers.swarmpit.rule: Host(`swarm.lysz210.name`)
       traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
-      #traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
-      traefik.http.routers.whoami.middlewares: https-redirect@docker
-      traefik.http.routers.whoami-s.rule: Host(`swarm.lysz210.name`)
-      traefik.http.routers.whoami-s.entrypoints: websecure
-      traefik.http.routers.whoami-s.tls.certresolver: letsencrypt
+      # traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
+      traefik.http.routers.swarmpit.middlewares: https-redirect@docker
+      traefik.http.routers.swarmpit-s.rule: Host(`swarm.lysz210.name`)
+      traefik.http.routers.swarmpit-s.entrypoints: websecure
+      traefik.http.routers.swarmpit-s.tls.certresolver: letsencrypt
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
