@@ -19,9 +19,9 @@ services:
       traefik.enable: true
       traefik.http.routers.swarmpit.entrypoints: web
       traefik.http.routers.swarmpit.rule: Host(`swarm.lysz210.name`)
+      traefik.http.routers.swarmpit.middlewares: https-redirect@docker
       traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
       # traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
-      traefik.http.routers.swarmpit.middlewares: https-redirect@docker
       traefik.http.routers.swarmpit-s.rule: Host(`swarm.lysz210.name`)
       traefik.http.routers.swarmpit-s.entrypoints: websecure
       traefik.http.routers.swarmpit-s.tls.certresolver: letsencrypt
