@@ -15,10 +15,14 @@ services:
       - "--certificatesresolvers.letsencrypt.acme.email=lingyong.sun@gmail.com"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
     labels:
+      traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
+      traefik.http.routers.api-n.entrypoints: web
+      traefik.http.routers.api-n.rule: Host(`swarm.lysz210.name`)
+      traefik.http.routers.api-n.middlewares: https-redirect@docker
       traefik.http.routers.api.entrypoints: websecure
       traefik.http.routers.api.rule: Host(`traefik.lysz210.name`)
       traefik.http.routers.api.service: api@internal
-      traefik.http.routers.swarmpit-s.tls.certresolver: letsencrypt
+      traefik.http.routers.api.tls.certresolver: letsencrypt
     ports:
       - "443:443"
       - "80:80"
