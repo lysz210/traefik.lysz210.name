@@ -5,7 +5,7 @@ services:
     image: traefik:v2.4
     command:
       - "--log.level=DEBUG"
-      - "--api.dashboard=true"
+      # - "--api.dashboard=true"
       - "--providers.docker=true"
       - "--providers.docker.swarmMode=true"
       - "--providers.docker.exposedbydefault=false"
@@ -15,16 +15,16 @@ services:
       - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
       - "--certificatesresolvers.letsencrypt.acme.email=lingyong.sun@gmail.com"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
-    labels:
-      traefik.enable: "true"
-      traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
-      traefik.http.routers.api-n.entrypoints: web
-      traefik.http.routers.api-n.rule: Host(`traefik.lysz210.name`)
-      traefik.http.routers.api-n.middlewares: https-redirect@docker
-      traefik.http.routers.api.entrypoints: websecure
-      traefik.http.routers.api.rule: Host(`traefik.lysz210.name`)
-      traefik.http.routers.api.service: api@internal
-      traefik.http.routers.api.tls.certresolver: letsencrypt
+    # labels:
+    #   traefik.enable: "true"
+    #   traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
+    #   traefik.http.routers.api-n.entrypoints: web
+    #   traefik.http.routers.api-n.rule: Host(`traefik.lysz210.name`)
+    #   traefik.http.routers.api-n.middlewares: https-redirect@docker
+    #   traefik.http.routers.api.entrypoints: websecure
+    #   traefik.http.routers.api.rule: Host(`traefik.lysz210.name`)
+    #   traefik.http.routers.api.service: api@internal
+    #   traefik.http.routers.api.tls.certresolver: letsencrypt
     ports:
       - "443:443"
       - "80:80"
