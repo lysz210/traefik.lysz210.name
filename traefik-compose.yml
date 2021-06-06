@@ -5,7 +5,7 @@ services:
     image: traefik:v2.4
     command:
       - "--log.level=DEBUG"
-      - "--api.insecure=true"
+      - "--api.dashboard=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
@@ -14,6 +14,9 @@ services:
       - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
       - "--certificatesresolvers.letsencrypt.acme.email=lingyong.sun@gmail.com"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+    labels:
+      traefik.http.routers.api.rule: Host(`traefik.example.com`)
+      traefik.http.routers.api.service: api@internal
     ports:
       - "443:443"
       - "80:80"
