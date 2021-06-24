@@ -9,6 +9,7 @@ services:
       - "--providers.docker=true"
         #   - "--providers.docker.swarmMode=true"
       - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=traefiknet"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
@@ -36,3 +37,4 @@ services:
 
 networks:
   traefiknet:
+    external: true

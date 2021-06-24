@@ -13,8 +13,6 @@ services:
     networks:
       - sail
       - traefiknet
-    depends_on:
-      - pgsql
     labels:
       traefik.enable: "true"
       traefik.http.routers.website.entrypoints: web
@@ -23,39 +21,13 @@ services:
       #traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
       traefik.http.routers.website.middlewares: https-redirect@docker
       traefik.http.services.website.loadbalancer.server.port: 80
-      traefik.http.routers.webiste.service: website
-      traefik.http.routers.webiste-s.service: website
-      traefix.docker.network: swarm-controller_traefiknet
+      traefik.http.routers.website.service: website
+      #traefik.http.routers.webiste-s.service: website
+      #traefix.docker.network: traefiknet
       traefik.http.routers.website-s.rule: Host(`lysz210.name`)
       traefik.http.routers.website-s.entrypoints: websecure
       traefik.http.routers.website-s.tls.certresolver: letsencrypt
 
-  pgsql:
-    image: "postgres:13"
-    ports:
-      - "${FORWARD_DB_PORT:-5432}:5432"
-    environment:
-      PGPASSWORD: "${DB_PASSWORD:-secret}"
-      POSTGRES_DB: "${DB_DATABASE}"
-      POSTGRES_USER: "${DB_USERNAME}"
-      POSTGRES_PASSWORD: "${DB_PASSWORD:-secret}"
-    volumes:
-      - "sailpgsql:/var/lib/postgresql/data"
-    networks:
-      - sail
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "pg_isready",
-          "-q",
-          "-d",
-          "${DB_DATABASE}",
-          "-U",
-          "${DB_USERNAME}",
-        ]
-      retries: 3
-      timeout: 5s
   memcached:
     image: "memcached:alpine"
     ports:
@@ -66,9 +38,6 @@ services:
 networks:
   sail:
     driver: bridge
-volumes:
-  sailpgsql:
-    driver: local
 secrets:
   dotenv:
     file: ${WEBSITE_DOTENV}
