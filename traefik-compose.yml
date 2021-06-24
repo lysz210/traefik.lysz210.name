@@ -34,7 +34,3 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - traefiknet
-
-networks:
-  traefiknet:
-    external: true
