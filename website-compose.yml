@@ -1,0 +1,69 @@
+version: "3"
+
+services:
+  website:
+    image: lysz210/website
+    environment:
+      WWWUSER: "${WWWUSER}"
+      LARAVEL_SAIL: 1
+
+    secrets:
+      - source: dotenv
+        target: /var/www/html/.env
+    networks:
+      - sail
+    depends_on:
+      - pgsql
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.whoami.entrypoints: web
+      traefik.http.routers.whoami.rule: Host(`lysz210.name`)
+      traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
+      #traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
+      traefik.http.routers.whoami.middlewares: https-redirect@docker
+      traefik.http.routers.whoami-s.rule: Host(`lysz210.name`)
+      traefik.http.routers.whoami-s.entrypoints: websecure
+      traefik.http.routers.whoami-s.tls.certresolver: letsencrypt
+
+  pgsql:
+    image: "postgres:13"
+    ports:
+      - "${FORWARD_DB_PORT:-5432}:5432"
+    environment:
+      PGPASSWORD: "${DB_PASSWORD:-secret}"
+      POSTGRES_DB: "${DB_DATABASE}"
+      POSTGRES_USER: "${DB_USERNAME}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD:-secret}"
+    volumes:
+      - "sailpgsql:/var/lib/postgresql/data"
+    networks:
+      - sail
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-q",
+          "-d",
+          "${DB_DATABASE}",
+          "-U",
+          "${DB_USERNAME}",
+        ]
+      retries: 3
+      timeout: 5s
+  memcached:
+    image: "memcached:alpine"
+    ports:
+      - "11211:11211"
+    networks:
+      - sail
+
+networks:
+  sail:
+    driver: bridge
+volumes:
+  sailpgsql:
+    driver: local
+secrets:
+  dotenv:
+    file: ${WEBSITE_DOTENV}
