@@ -1,0 +1,20 @@
+providers:
+  docker:
+    exposedByDefault: false
+    network: traefiknet
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      tlsChallenge: {}
+      email: lingyong.sun@gmail.com
+      storage: /letsencrypt/acme.json
+
+entryPoints:
+  web:
+    address: :80
+  websecure:
+    address: :443
+
+api:
+  dashboard: true
