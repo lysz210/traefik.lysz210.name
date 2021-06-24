@@ -1,4 +1,4 @@
-version: '${COMPOSE_VER}'
+version: "3.7"
 
 services:
   reverse-proxy:
@@ -31,3 +31,8 @@ services:
     volumes:
       - ./letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - traefiknet
+
+networks:
+  traefiknet:
