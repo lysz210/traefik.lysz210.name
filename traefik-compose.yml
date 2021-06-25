@@ -6,16 +6,16 @@ services:
     command:
       - "--log.level=DEBUG"
       # - "--api.dashboard=true"
-    # labels:
-    #   traefik.enable: "true"
-    #   traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
-    #   traefik.http.routers.api-n.entrypoints: web
-    #   traefik.http.routers.api-n.rule: Host(`traefik.lysz210.name`)
-    #   traefik.http.routers.api-n.middlewares: https-redirect@docker
-    #   traefik.http.routers.api.entrypoints: websecure
-    #   traefik.http.routers.api.rule: Host(`traefik.lysz210.name`)
-    #   traefik.http.routers.api.service: api@internal
-    #   traefik.http.routers.api.tls.certresolver: letsencrypt
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
+      traefik.http.routers.api-n.entrypoints: web
+      traefik.http.routers.api-n.rule: Host(`traefik.lysz210.name`)
+      traefik.http.routers.api-n.middlewares: https-redirect@docker
+      traefik.http.routers.api.entrypoints: websecure
+      traefik.http.routers.api.rule: Host(`traefik.lysz210.name`)
+      traefik.http.routers.api.service: api@internal
+      traefik.http.routers.api.tls.certresolver: letsencrypt
     ports:
       - "443:443"
       - "80:80"
@@ -23,5 +23,6 @@ services:
     volumes:
       - ./letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./configs/traefik:/etc/traefik:ro
     networks:
       - traefiknet
