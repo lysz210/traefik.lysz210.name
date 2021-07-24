@@ -1,0 +1,20 @@
+---
+- hosts: lysz210
+  become: yes
+  tasks:
+    - name: Ensure Docker installed
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose
+        state: present
+- hosts: lysz210
+  tasks:
+    - name: pull repo
+      git:
+        repo: https://github.com/lysz210/swarm-controller.git
+        dest: ~/swarm-controller
+        update: yes
+    # - name: update

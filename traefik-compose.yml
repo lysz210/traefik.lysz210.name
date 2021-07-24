@@ -19,7 +19,7 @@ services:
         # Uses the environment variable DOMAIN
         traefik.http.routers.traefik-public-https.rule: Host(`${DOMAIN?Variable not set}`)
         traefik.http.routers.traefik-public-https.entrypoints: https
-        traefik.http.routers.traefik-public-https.tls: true
+        traefik.http.routers.traefik-public-https.tls: "true"
         # Use the special Traefik service api@internal with the web UI/Dashboard
         traefik.http.routers.traefik-public-https.service: api@internal
         traefik.http.routers.api.tls.certresolver: letsencrypt
