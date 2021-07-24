@@ -31,7 +31,7 @@ services:
         traefik.http.routers.website.middlewares: https-redirect
         traefik.http.routers.website.rule: Host(`lysz210.name`)
         traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
-        #traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
+        traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
         traefik.http.routers.website-s.rule: Host(`lysz210.name`)
         traefik.http.routers.website-s.entrypoints: https
         traefik.http.routers.website-s.tls.certresolver: le
