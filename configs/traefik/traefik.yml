@@ -6,16 +6,16 @@ providers:
     constraints: Label(`traefik.constraint-label`, `traefiknet`)
 
 certificatesResolvers:
-  letsencrypt:
+  le:
     acme:
       tlsChallenge: {}
       email: lingyong.sun@gmail.com
       storage: /letsencrypt/acme.json
 
 entryPoints:
-  web:
+  http:
     address: :80
-  websecure:
+  https:
     address: :443
 
 api:
