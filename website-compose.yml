@@ -28,6 +28,7 @@ services:
         traefik.enable: "true"
         traefik.constraint-label: traefiknet
         traefik.http.routers.website.entrypoints: http
+        traefik.http.routers.website.middlewares: https-redirect
         traefik.http.routers.website.rule: Host(`lysz210.name`)
         traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
         #traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
