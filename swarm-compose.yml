@@ -20,11 +20,9 @@ services:
       labels:
         traefik.enable: "true"
         traefik.constraint-label: traefiknet
+        traefik.http.routers.swarm-http.rule: Host(`swarm.lysz210.name`)
         traefik.http.routers.swarm-http.entrypoints: http
         traefik.http.routers.swarm-http.middlewares: https-redirect
-        traefik.http.routers.swarm-http.rule: Host(`swarm.lysz210.name`)
-        traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
-        traefik.http.middlewares.https-redirect.redirectscheme.permanent: "true"
         traefik.http.routers.swarm-https.rule: Host(`swarm.lysz210.name`)
         traefik.http.routers.swarm-https.entrypoints: https
         traefik.http.routers.swarm-https.tls.certresolver: le

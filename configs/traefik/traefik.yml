@@ -23,3 +23,10 @@ api:
 
 log:
   level: DEBUG
+
+http:
+  middlewares:
+    https-redirect:
+      redirectscheme:
+        scheme: https
+      permanent: "true"
