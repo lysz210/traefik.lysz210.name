@@ -1,7 +1,9 @@
 providers:
   docker:
     exposedByDefault: false
+    swarmMode: true
     network: traefiknet
+    constraints: Label(`traefik.constraint-label`, `traefiknet`)
 
 certificatesResolvers:
   letsencrypt:
@@ -18,3 +20,6 @@ entryPoints:
 
 api:
   dashboard: true
+
+log:
+  level: DEBUG

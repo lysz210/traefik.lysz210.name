@@ -23,20 +23,20 @@ services:
     networks:
       - sail
       - traefiknet
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.website.entrypoints: web
-      traefik.http.routers.website.rule: Host(`lysz210.name`)
-      traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
-      #traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
-      traefik.http.routers.website.middlewares: https-redirect@docker
-      traefik.http.services.website.loadbalancer.server.port: 80
-      traefik.http.routers.website.service: website
-      #traefik.http.routers.webiste-s.service: website
-      #traefix.docker.network: traefiknet
-      traefik.http.routers.website-s.rule: Host(`lysz210.name`)
-      traefik.http.routers.website-s.entrypoints: websecure
-      traefik.http.routers.website-s.tls.certresolver: letsencrypt
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.constraint-label: traefiknet
+        traefik.http.routers.website.entrypoints: web
+        traefik.http.routers.website.rule: Host(`lysz210.name`)
+        traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
+        #traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
+        traefik.http.routers.website.middlewares: https-redirect@docker
+        traefik.http.routers.website.service: website
+        traefik.http.routers.website-s.rule: Host(`lysz210.name`)
+        traefik.http.routers.website-s.entrypoints: websecure
+        traefik.http.routers.website-s.tls.certresolver: letsencrypt
+        traefik.http.services.website.loadbalancer.server.port: 80
   pgsql:
     image: "postgres:13"
     ports:
