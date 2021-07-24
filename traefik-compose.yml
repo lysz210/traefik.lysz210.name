@@ -9,7 +9,7 @@ services:
         traefik.constraint-label: traefiknet
         traefik.http.middlewares.admin-auth.basicauth.users: ${USERNAME?Variable not set}:${HASHED_PASSWORD?Variable not set}
         traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
-        traefik.http.middlewares.https-redirect.redirectscheme.permanent: true
+        traefik.http.middlewares.https-redirect.redirectscheme.permanent: "true"
 
         # traefik-http set up only to use the middleware to redirect to https
         # Uses the environment variable DOMAIN
