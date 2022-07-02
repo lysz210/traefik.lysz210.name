@@ -19,7 +19,7 @@ services:
         traefik.http.routers.traefik-public-https.entrypoints: https
         traefik.http.routers.traefik-public-https.service: api@internal
         traefik.http.routers.traefik-public-https.tls.certresolver: le
-        traefik.http.routers.traefik-public-https.middlewares: admin-chain
+        traefik.http.routers.traefik-public-https.middlewares: admin-chain@file
         # Use the special Traefik service api@internal with the web UI/Dashboard
         traefik.http.services.traefik-public.loadbalancer.server.port: 8080
     ports:
