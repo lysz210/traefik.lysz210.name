@@ -29,11 +29,12 @@ services:
         traefik.constraint-label: traefiknet
         traefik.http.routers.website.rule: Host(`lysz210.name`)
         traefik.http.routers.website.entrypoints: http
-        traefik.http.routers.website.middlewares: https-redirect
+        traefik.http.routers.website.middlewares: https-redirect@file
         traefik.http.routers.website-s.rule: Host(`lysz210.name`)
         traefik.http.routers.website-s.entrypoints: https
         traefik.http.routers.website-s.tls.certresolver: le
         traefik.http.services.website.loadbalancer.server.port: 80
+
   pgsql:
     image: "postgres:13"
     ports:

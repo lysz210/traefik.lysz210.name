@@ -4,6 +4,9 @@ providers:
     swarmMode: true
     network: traefiknet
     constraints: Label(`traefik.constraint-label`, `traefiknet`)
+  file:
+    directory: /etc/traefik
+    watch: true
 
 certificatesResolvers:
   le:
@@ -20,13 +23,8 @@ entryPoints:
 
 api:
   dashboard: true
+  insecure: true
 
 log:
-  level: ERROR
+  level: debug
 
-http:
-  middlewares:
-    https-redirect:
-      redirectscheme:
-        scheme: https
-      permanent: "true"

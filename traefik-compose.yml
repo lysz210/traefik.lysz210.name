@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   reverse-proxy:
-    image: traefik:v2.4
+    image: traefik:v2.8
     deploy:
       labels:
         traefik.enable: "true"
@@ -13,7 +13,7 @@ services:
         # Uses the environment variable TRAEFIK_DOMAIN
         traefik.http.routers.traefik-public-http.rule: Host(`${TRAEFIK_DOMAIN?Variable not set}`)
         traefik.http.routers.traefik-public-http.entrypoints: http
-        traefik.http.routers.traefik-public-http.middlewares: https-redirect
+        traefik.http.routers.traefik-public-http.middlewares: https-redirect@file
         # traefik-https the actual router using HTTPS
         # Uses the environment variable TRAEFIK_DOMAIN
         traefik.http.routers.traefik-public-https.rule: Host(`${TRAEFIK_DOMAIN?Variable not set}`)
@@ -26,6 +26,7 @@ services:
     ports:
       - "443:443"
       - "80:80"
+      - "8080:8080"
     volumes:
       - ./letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
