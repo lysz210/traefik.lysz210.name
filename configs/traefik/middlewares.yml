@@ -5,3 +5,7 @@ http:
       redirectScheme:
         scheme: https
         permanent: true
+    admin-auth:
+      basicauth:
+        usersfile: /credentials.txt
+        
