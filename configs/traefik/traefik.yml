@@ -26,5 +26,5 @@ api:
   insecure: true
 
 log:
-  level: debug
+  level: ERROR
 
