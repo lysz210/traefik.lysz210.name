@@ -13,15 +13,15 @@ services:
         # Uses the environment variable TRAEFIK_DOMAIN
         traefik.http.routers.traefik-public-http.rule: Host(`traefik.lysz210.name`)
         traefik.http.routers.traefik-public-http.entrypoints: http
-        # traefik.http.routers.traefik-public-http.middlewares: https-redirect@file
-        traefik.http.routers.traefik-public-http.service: api@internal
+        traefik.http.routers.traefik-public-http.middlewares: https-redirect@file
         # traefik-https the actual router using HTTPS
         # Uses the environment variable TRAEFIK_DOMAIN
-        # traefik.http.routers.traefik-public-https.rule: Host(`${TRAEFIK_DOMAIN?Variable not set}`)
-        # traefik.http.routers.traefik-public-https.entrypoints: https
-        # traefik.http.routers.traefik-public-https.tls: "true"
+        traefik.http.routers.traefik-public-https.rule: Host(`${TRAEFIK_DOMAIN?Variable not set}`)
+        traefik.http.routers.traefik-public-https.entrypoints: https
+        traefik.http.routers.traefik-public-https.service: api@internal
+        traefik.http.routers.traefik-public-https.tls: "true"
         # Use the special Traefik service api@internal with the web UI/Dashboard
-        # traefik.http.routers.api.tls.certresolver: le
+        traefik.http.routers.api.tls.certresolver: le
         traefik.http.services.traefik-public.loadbalancer.server.port: 8080
     ports:
       - "443:443"
