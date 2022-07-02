@@ -19,14 +19,12 @@ services:
         traefik.http.routers.traefik-public-https.rule: Host(`traefik.lysz210.name`)
         traefik.http.routers.traefik-public-https.entrypoints: https
         traefik.http.routers.traefik-public-https.service: api@internal
-        traefik.http.routers.traefik-public-https.tls: "true"
+        traefik.http.routers.traefik-public-https.tls.certresolver: le
         # Use the special Traefik service api@internal with the web UI/Dashboard
-        traefik.http.routers.api.tls.certresolver: le
         traefik.http.services.traefik-public.loadbalancer.server.port: 8080
     ports:
       - "443:443"
       - "80:80"
-      - "8080:8080"
     volumes:
       - ./letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
