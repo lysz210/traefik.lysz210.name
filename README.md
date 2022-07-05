@@ -1,5 +1,5 @@
 # swarm-controller
-Project for easy deploy apps.
+Project for easy deploy apps
 
 The initial plan was to with Docker Swarm but it's hard to setup for https and after some research it turns out that it requires Consul to handle it correctly so apps will be deployed with docker-compose instead.
 
