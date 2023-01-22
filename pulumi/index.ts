@@ -15,3 +15,4 @@ export const connection = {
     user: ec2Ref.getOutput('user'),
     host: ec2Ref.getOutput('publicIp')
 }
+export const dynamicConfigsPath = 'swarm-controller/configs/traefik'
